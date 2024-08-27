@@ -3,5 +3,184 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "vicbrary": {
+      "projectType": "library",
+      "root": "projects/vicbrary",
+      "sourceRoot": "projects/vicbrary/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/vicbrary/ng-package.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "/projects/vicbrary/src"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vicbrary/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/vicbrary/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/vicbrary/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/vicbrary/.storybook",
+            "browserTarget": "vicbrary:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/vicbrary"
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/vicbrary/.storybook",
+            "browserTarget": "vicbrary:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/vicbrary"
+            ],
+            "outputDir": "dist/storybook/vicbrary"
+          }
+        }
+      }
+    },
+    "TestDriveLib": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/test-drive-lib",
+      "sourceRoot": "projects/test-drive-lib/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/test-drive-lib",
+            "index": "projects/test-drive-lib/src/index.html",
+            "browser": "projects/test-drive-lib/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/test-drive-lib/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/test-drive-lib/public"
+              }
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "/projects/vicbrary/src"
+              ]
+            },
+            "styles": [
+              "projects/test-drive-lib/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "TestDriveLib:build:production"
+            },
+            "development": {
+              "buildTarget": "TestDriveLib:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/test-drive-lib/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/test-drive-lib/public"
+              }
+            ],
+            "styles": [
+              "projects/test-drive-lib/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@schematics/angular:application": {
+      "style": "scss"
+    }
   }
 }
