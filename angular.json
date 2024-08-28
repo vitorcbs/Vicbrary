@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/vicbrary",
       "sourceRoot": "projects/vicbrary/src",
-      "prefix": "lib",
+      "prefix": "vby",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
