@@ -1,15 +1,31 @@
-@import '../styles/scss/global';
+@import "../styles/scss/global";
 
 button {
   padding: 10px 20px;
-  border: 1px solid;
-  border-radius: 8px;
-  color: $color-button-primary-bg;
+  border: none;
   cursor: pointer;
   font-size: 16px;
-}
+  &.primary {
+    background-color: $color-button-primary-bg;
+    color: $color-white;
+    &:hover{
+      background-color: $color-button-primary-bg-hover;
+    }
+  }
 
-button:hover{
-  color: $color-button-primary-bg-hover;
-}
+  &.secondary {
+    background-color: $color-button-secondary-bg;
+    color: $color-black;
+    &:hover{
+      background-color: $color-button-secondary-bg-hover;
+    }
+  }
 
+  &.rounded {
+    border-radius: 50px;
+  }
+
+  &.square {
+    border-radius: 0;
+  }
+}
